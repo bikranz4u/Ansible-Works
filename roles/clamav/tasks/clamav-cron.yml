@@ -1,0 +1,18 @@
+---
+
+#THIS FILE WILL SETUP CRON ENTRY FOR CLAMAV SCAN AND UPDATE
+#name: ClamAV update
+  - cron:
+     name: ClamAV-Update
+     user: root
+     minute: 05
+     hour: 01
+     job: sh /opt/apps/cds_boot/clamav-update.sh
+
+# - name: ClamAV scan
+  - cron:
+     name: ClamAV-scan
+     user: root
+     minute: 05
+     hour: 02
+     job: sh /opt/apps/cds_boot/clamav-scan.sh

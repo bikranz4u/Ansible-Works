@@ -1,0 +1,5 @@
+---
+# handlers file for clamav
+ - name: restart clamav service
+   shell: /etc/init.d/clamd.scan start
+

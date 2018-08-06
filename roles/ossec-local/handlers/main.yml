@@ -1,0 +1,6 @@
+---
+# handlers file for ossec-local
+
+ - name: start ossec service
+#   service: name=ossec state=restarted
+   raw: /var/ossec/bin/ossec-control restart

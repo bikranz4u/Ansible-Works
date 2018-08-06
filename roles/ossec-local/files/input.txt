@@ -1,0 +1,12 @@
+en
+
+local
+/var/ossec
+y
+test321@gmail.com
+y
+y
+y
+y
+y
+n

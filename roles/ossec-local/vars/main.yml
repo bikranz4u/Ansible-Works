@@ -1,0 +1,13 @@
+---
+# vars file for ossec-local
+
+version: 2.9.3
+do_you_want_mail: 'yes'
+receiver: 'test321@gmail.com.com'
+sender: 'test321@gmail.com'
+smtp_server_mxrecord: '<Your Mx Record Goes Here'
+frequency_set: 28000
+directories_to_be_check1: '/etc,/usr/bin,/usr/sbin'
+directories_to_be_check2: '/bin,/sbin,/boot'
+log_alert_level: 2
+email_alert_level: 8

@@ -1,0 +1,79 @@
+---
+# tasks file for clamav
+# IPtables Flushing is not required
+# - name: Flushing Iptables rule
+#   command: iptables -F
+
+ - name: installing clamav on Redhat systems
+   yum: name={{ item }} state=latest
+   with_items:
+       - clamav
+       - clamd
+       - clamav-update
+       - clamav-data
+       - clamav-filesystem
+       - clamav-devel
+       - clamav-lib
+       - clamav-scanner-sysvinit
+       - clamav-scanner
+       - clamav-server
+       - clamav-server-sysvinit
+   when: ansible_os_family == "RedHat"
+   ignore_errors: yes
+
+ - name: installing clamav on Ubuntu systems
+   apt: name={{ item }} state=latest
+   with_items:
+       - clamav
+       - clamd
+       - clamav-update
+       - clamav-data
+       - clamav-filesystem
+       - clamav-devel
+       - clamav-lib
+       - clamav-scanner-systemd
+       - clamav-scanner
+       - clamav-server
+       - clamav-server-systemd
+   when: ansible_os_family == "Debian"
+   ignore_errors: yes
+
+ - name: Creating clam-log directory to hold all the clamav scan & update logs will reside
+   file: >
+         path=/var/log/clamav-log/
+         owner=clamupdate
+         mode=777
+         group=clamupdate
+         state=directory
+
+ - name: Creating a log file for clamscan
+   file: >
+         path=/var/log/clamav-log/clamd_scan.log
+         state=touch
+         mode=755
+         owner=clamscan
+         group=clamscan
+
+ - name: pre-configured '/etc/freshclam.conf'
+   copy: >
+         src=freshclam.conf
+         dest=/etc/freshclam.conf
+
+ - name: Updating Clamav Database
+   command: /usr/bin/freshclam
+
+ - name: pre-configured '/etc/clamd.d/scan.conf'
+   copy: >
+         src=scan.conf
+         dest=/etc/clamd.d/scan.conf
+   notify: restart clamav service
+
+ - name: Copy the ClamAV scanning & Updating Script to Destnation
+   copy: >
+         src={{ item }}
+         dest=/opt/apps/cds_boot/
+         mode=0700
+   with_fileglob:
+        - /home/ansible/bdas_repo/Ansible_bdas/roles/clamav/files/*.sh
+
+ - import_tasks: clamav-cron.yml

@@ -1,0 +1,33 @@
+---
+# tasks file for ossec-local
+#
+ - name: Coping the ossec source file to destination
+   copy: >
+         src=ossec-hids-{{ version }}.tar.gz
+         dest=/opt
+
+ - name: Copy the installion input parameter file
+   copy: >
+         src=input.txt
+         dest=/opt
+
+# - name: Go to installion directory
+#   command: chdir=/opt
+
+ - name:  Extract the contents of the tar.gz file
+   unarchive: copy=no src=/opt/ossec-hids-{{ version }}.tar.gz dest=/opt
+
+ - name: Install Ossec
+   shell: ./install.sh < /opt/input.txt
+   args:
+     chdir: /opt/ossec-hids-{{ version }}
+#     creates: /var/ossec/etc/ossec.conf
+
+ - name: Configure the ossec with desired requirements.
+#   template: >
+#             src=ossec_conf_input.j2
+   copy: >
+          src=ossec.conf
+          dest=/var/ossec/etc/ossec.conf
+          backup=yes
+   notify: start ossec service
