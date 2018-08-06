@@ -1,0 +1,38 @@
+--
+
+   - name: Base packages
+     apt: name={{ item }} state=latest
+     with_items:
+      - gcc
+      - wget
+     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+   - name: Base packages
+     yum: name={{ item }} state=latest
+     with_items:
+      - gcc
+      - wget
+     when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+   - name: Python
+     apt: name={{ item }} state=latest
+     with_items:
+        - python
+        - python-pip
+     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+   - name: Python
+     apt: name={{ item }} state=latest
+     with_items:
+        - python
+        - python-pip
+     when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+   - name: Download Agent Installer
+     get_url:
+       url: https://gcp.cloudendure.com/installer_linux.py
+       dest: /tmp/installer_linux.py
+
+   - name: Install CloudEndure Agent
+     become: true
+     command: python /tmp/installer_linux.py -t {{ key }} --no-prompt
