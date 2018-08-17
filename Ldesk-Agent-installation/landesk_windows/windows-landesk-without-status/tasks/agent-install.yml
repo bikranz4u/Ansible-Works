@@ -1,0 +1,51 @@
+# THIS SCRIPT IS TO INSTALL LANDESY AGENT OVER WINDOWS MACHINES
+
+# AS PER REQUIREMENT WE HAVE NOT PLACED THE INSTALLATION FILES OVER S3 OR GOOGLE DRIVE, RATHER STORED LOCALLY.
+# IF REQUIRED , IT CAN BE PLACED UNDER ANY SECURE PLACE.
+# IN THIS CASE, WE PLACED IT UNDER FILES/
+
+#TEMPORARILY WE ARE CREATING A DIRECTORY TO STORE THE AGENT, ONCE INSTALLATION DONE SUCCESSFULLY, WE SHOULD DELETE IT.
+- name: Create a temp directory
+  win_file:
+    path: C:\\deploy
+    state: directory
+
+#WE CAN COPY THE ZIPPED AGENT FILES FROM LOCAL  TO REMOTE HOST TEMPORARY DIRECTORY CREATED ABOVE
+
+- name: Copies the Zipped fils to remote locations on windows hosts
+  win_copy:
+     src: DefaultWindowsServerConfiguration_without_status.exe
+     dest: C:\\deploy
+
+#ONCE FILE COPIED TO REMOTE HOST WE SHOULD UNZIP IT.
+
+#- name: unzipping the agent files on remote host.
+#  win_unzip:
+#     src: C:\\deploy\Default+Windows+Server+Config+with+status.zip
+#     dest: C:\\deploy
+#     rm: yes
+
+#ONCE  UNZIP DONE WE CAN INSTALL THE .EXE FILE FROM THAT.
+#
+#============================== AGENT INSTALLATION WITHOUT STATUS====================================================
+#
+- name: Installing Windows Server Configuration.exe (WITHOUT STATUS:- Don't show GUI to the user)
+  win_command: C:\deploy\DefaultWindowsServerConfiguration_without_status.exe
+  register: result
+- debug: var=result
+#- win_reboot: 
+#    reboot_timeout_sec: 300
+#  when: result.reboot_required
+  
+  ignore_errors: yes  
+#  when: result.rc == '3010'
+#  notify: windows_reboot
+ 
+#============================== AGENT INSTALLATION WITH STATUS=============================
+#
+#- name: Installing Windows Server Configuration.exe (WITH STATUS:- shows GUI to the user)
+#  win_command: C:\deploy\test\win_server_config_with_status.exe
+#  register: result1
+#- debug: var=result1
+  
+  

@@ -1,0 +1,8 @@
+--- #THIS IS A DEMO FOR WINDOWS
+- hosts: windows
+  gather_facts: no 
+  tasks:
+  - name: run ipconfig
+    raw: ipconfig
+    register: ipconfig
+  - debug: var=ipconfig

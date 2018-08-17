@@ -1,0 +1,4 @@
+--- 
+# tasks file for landesk for Linux
+- include: linux_firewall-2.yml 
+- include: agent-install.yml

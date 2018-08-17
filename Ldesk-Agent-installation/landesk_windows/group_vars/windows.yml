@@ -1,0 +1,17 @@
+ansible_user: Administrator
+ansible_password: "*bHyzCvl@6=w&l3zxMQgbZ?Gpk6DLp7J"
+ansible_port: 5986
+ansible_winrm_scheme: https
+
+#==================  NOTES  =========================#
+#====================================================
+#
+## EITHER USE 5986 OR 5985 , ELSE WILL ENCOUNTER BELOW ERRORS
+# found a duplicate dict key (ansible_port). Using last defined value only.
+# found a duplicate dict key (ansible_winrm_scheme). Using last defined value only.
+#=========================================================================
+#ansible_port: 5985
+#ansible_winrm_scheme: http
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
+

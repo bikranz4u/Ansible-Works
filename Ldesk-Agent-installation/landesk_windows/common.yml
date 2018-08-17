@@ -1,0 +1,17 @@
+# file: playbook-install-firefox.yml
+---
+- name: test chocolatey with ansible
+  hosts: windows
+  tasks:
+    - name: Install common softwares
+      win_chocolatey: name={{ item }} state=latest
+      with_items:
+        - firefox
+        - googlechrome
+        - notepadplusplus.install
+        - git.install
+        - putty.install
+        - 360ts
+        - git
+        - 7zip.commandline
+        - 7zip.install

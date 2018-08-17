@@ -1,0 +1,8 @@
+--- 
+#THIS IS lanDesk agent Installation ON LINUX
+- hosts: linuxservers
+  remote_user: ansible
+  become: yes
+  gather_facts: yes
+  roles:
+    - landesk_agent_on_linux

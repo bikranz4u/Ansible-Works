@@ -1,0 +1,68 @@
+---
+# tasks file for landesk agent installation on Linux machine
+
+# Installing *nix Landesk  Agent Dependencies On Redhat
+- name: Installing *nix Landesk  Agent Dependencies on Redhat/Centos
+  yum: name={{ item }} state=installed
+  with_items:
+      - glibc
+      - libgcc
+      - gcc
+      - libstdc++
+      - libxml2
+      - zlib
+      - openssl
+      - pam
+      - xinetd
+      - unzip
+  when: ansible_os_family == 'RedHat'
+  ignore_errors: yes
+
+## Installing *nix Landesk  Agent Dependencies On Debian
+#- name: Installing *nix Landesk  Agent Dependencies on Debian
+#  apt: name={{ item }} state=installed
+#  with_items:
+#      - glibc
+#      - libgcc
+#      - gcc
+#      - libstdc++
+#      - libxml2
+#      - zlib
+#      - openssl
+#      - pam
+#      - xinetd
+#  when: ansible_os_family == 'Debian'
+#  ignore_errors: yes
+      
+
+# CREATE A TEMPORARY DIRECTORY TO PLACE THE LANDESK AGENT INSTALLATION FILES -
+# AND THIS CAN BE DELETED ONCE AGENT INSTALLTION IS SUCCESSFUL.
+ 
+- name: Create a temp directory to place landesk installation files
+  file:
+    path: /temp
+    state: directory
+    mode: 0755
+
+# ONCE THE /temp IS CREATED COPY THE INSTALLATION FILES TO THE NEWLY CREATED DIRECTORY
+ 
+- name: Copy & unarchive the desired files to remote host
+  unarchive: src=Landesk_Linux_agent_tar_file.zip dest=/temp/
+            
+# AFTER UNARCHIVE DONE WE CAN CHANGE THE FILE PERMISSION FOR THE .sh files with +x
+- name: Modify file permissions for .sh files chmod +x *.sh
+  raw: chmod +x /temp/Landesk_Linux_agent_tar_file/*.sh
+
+# REMOVE OLD AGENT , IF RUNNING
+- name: remove old landesk agent , if running
+  raw: sh /temp/Landesk_Linux_agent_tar_file/rmlinux64client.sh
+  register: result1
+- debug: var=result1
+  ignore_errors: yes
+
+# INSTALL LATEST AGENTS 
+- name: Install new landesk agent
+  raw: sh /temp/Landesk_Linux_agent_tar_file/bsft-linux.sh
+  register: result2
+- debug: var=result2
+  ignore_errors: yes

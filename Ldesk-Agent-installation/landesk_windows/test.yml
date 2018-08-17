@@ -1,0 +1,12 @@
+--- #THIS IS A DEMO FOR WINDOWS
+- hosts: windows
+  gather_facts: yes
+  tasks:
+  - name: Create a temp directory
+    win_file: 
+     path: C:\\deploy
+     state: directory 
+#- name: Download Dotnet 4.5 Full Download.exe
+#    win_get_url: dest="C:\\deploy" url=https://www.python.org/
+#- name: Install dotnet 4.5
+#    win_dotnet: src="C:\\deploy\\dotnet 4_5 Full Download.exe" Version='4'

@@ -1,0 +1,53 @@
+# FIREWALL RULE TO ALLOW DIFFERENT PORTs WITH INBOUND AND OUTBOUND POLICY
+#Quite a few functionalities of LANDESK rely on ping (ICMP ECHO) to probe if the device or server is reachable.
+#Disabling ICMP ECHO within the network might result in losing LANDESK functions,-
+#such as bandwidth awareness or usage of preferred server.
+
+###################  BELOW RULES UPDATED ACCORDING TO ##### https://community.ivanti.com/docs/DOC-5374 ################
+#### make sure   "python-firewall" & "cockpit"  is installed on remote hosts###################
+#    systemctl enable firewalld
+#    systemctl start firewalld
+#    systemctl status firewalld 
+#    firewall-cmd --get-default-zone
+#  https://www.linode.com/docs/security/firewalls/introduction-to-firewalld-on-centos
+#  https://www.tecmint.com/configure-firewalld-in-centos-7/
+####################################################################################################
+
+
+
+
+# RULE FOR Management Agent (cba8)
+- name: Firewall rule for Ping Discovery Service
+  firewalld:
+     port: 9595/tcp
+     permanent: true
+     state: enabled
+
+#RULE FOR Management Agent (cba8)
+- name: Firewall rule for Ping Discovery Service
+  firewalld:
+    port: 9595/udp
+    permanent: true
+    state: enabled
+
+#RULE FOR Messaging Sytem (msgsys)
+- name: Firewall rule for Messaging Sytem
+  firewalld:
+    port: 9594/tcp
+    permanent: true
+    state: enabled
+
+#RULE FOR LANDesk Management Agent
+- name: Firewall rule for LANDesk Management Agent
+  firewalld:
+    port: 9592/tcp
+    permanent: true
+    state: enabled
+
+#RULE FOR LANDesk Gateway
+- name: Firewall rule for LDGateway 
+  firewalld:
+    port: 9592/tcp
+    permanent: true
+    state: enabled
+

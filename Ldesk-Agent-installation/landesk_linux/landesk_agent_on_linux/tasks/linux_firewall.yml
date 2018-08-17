@@ -1,0 +1,221 @@
+# FIREWALL RULE TO ALLOW DIFFERENT PORTs WITH INBOUND AND OUTBOUND POLICY
+#Quite a few functionalities of LANDESK rely on ping (ICMP ECHO) to probe if the device or server is reachable.
+#Disabling ICMP ECHO within the network might result in losing LANDESK functions,-
+#such as bandwidth awareness or usage of preferred server.
+
+# RULE FOR UDD
+- name: Firewall rule to allow UDD on TCP port 25
+  action: win_firewall_rule
+  args:
+    name: UDD
+    enable: yes
+    state: present
+    localport: 25
+    action: allow
+    direction: In
+    protocol: TCP
+
+# RULE FOR PATCH MANAGER , INVENTORY
+- name: Firewall rule to allow Patch Manager, Security Suite, Software Distribution, Inventory
+  action: win_firewall_rule
+  args:
+    name: Patch Manager
+    enable: yes
+    state: present
+    localport: 80
+    action: allow
+    direction: Out
+    protocol: TCP
+
+# RULE FOR CLIENT,CORE,INVENTORY
+- name: Firewall rule for Client,Core,Inventory
+  action: win_firewall_rule
+  args:
+    name: Inventory
+    enable: yes
+    state: present
+    localport: 443
+    action: allow
+    direction: Out
+    protocol: TCP
+
+# RULE FOR INVENTORY
+- name: Firewall rule for Inventory
+  action: win_firewall_rule
+  args:
+    name: Inventory
+    enable: yes
+    state: present
+    localport: 5007
+    action: allow
+    direction: Out
+    protocol: TCP
+
+
+# RULE FOR REMOTE MANAGMENT
+- name: Firewall rule for Software Distribution
+  action: win_firewall_rule
+  args:
+    name: Software Distribution
+    enable: yes
+    state: present
+    localport: 9593
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION
+- name: Firewall rule for Remote Managment
+  action: win_firewall_rule
+  args:
+    name: Remote managment
+    enable: yes
+    state: present
+    localport: 9535
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION
+- name: Firewall rule for Software Distribution
+  action: win_firewall_rule
+  args:
+    name: Software Distribution
+    enable: yes
+    state: present
+    localport: 9594
+    action: allow
+    direction: In
+    protocol: TCP
+
+
+- name: Firewall rule for Software Distribution
+  action: win_firewall_rule
+  args:
+   name: Software Distribution
+   enable: yes
+   state: present
+   localport: 9594
+   action: allow
+   direction: Out
+   protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Agent Discovery
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: In
+    protocol: TCP
+
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Agent Discovery
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR REMOTE EXECUTE
+- name: Firewall rule for Remote Execute
+  action: win_firewall_rule
+  args:
+    name: Remote Execute
+    enable: yes
+    state: present
+    localport: 12174
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR Imaging (PXE Broadcast)
+- name: Firewall rule for Imaging (PXE Broadcast)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE Broadcast)
+    enable: yes
+    state: present
+    localport: 67
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Imaging (PXE )
+- name: Firewall rule for Imaging (PXE)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE)
+    enable: yes
+    state: present
+    localport: 68
+    action: allow
+    direction: In
+    protocol: UDP
+
+#RULE FOR Imaging (PXE TFTP)
+- name: Firewall rule for Imaging (PXE TFTP)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE TFTP)
+    enable: yes
+    state: present
+    localport: 69
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Imaging (PXE MTFTP)
+- name: Firewall rule for Imaging (PXE MTFTP)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE MTFTP)
+    enable: yes
+    state: present
+    localport: 1759
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Imaging (PXE Unicast)
+- name: Firewall rule for Imaging (PXE Unicast)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE Unicast)
+    enable: yes
+    state: present
+    localport: 4011
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR AGENT DISCOVERY
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Device Discovery, XDD
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: In
+    protocol: UDP
+
+
+- name: Firewall rule for Imaging Device Discovery, XDD
+  action: win_firewall_rule
+  args:
+    name: Device Discovery, XDD
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: Out
+    protocol: UDP
+

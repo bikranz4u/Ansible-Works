@@ -1,0 +1,8 @@
+--- #THIS IS A DEMO FOR WINDOWS
+- hosts: windows
+  tasks:
+  - name: Add User 
+    win_user:
+       name: Bikranz
+       password: nopasswd
+       state: present

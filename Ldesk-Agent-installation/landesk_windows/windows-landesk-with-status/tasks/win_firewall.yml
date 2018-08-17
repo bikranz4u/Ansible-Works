@@ -1,0 +1,518 @@
+# FIREWALL RULE TO ALLOW DIFFERENT PORTs WITH INBOUND AND OUTBOUND POLICY
+# https://community.ivanti.com/docs/DOC-1591#Windows_Agent
+# If below error arises , then  we need to add "force= True" under args
+# msg": [
+#               "The rule 'UNC' exists.",
+#               "The rule exists but has different values",
+#               "There was already a rule UNC with different values, use force=True to overwrite it"
+#        ]
+#
+# RULE FOR UDD
+- name: Firewall rule to allow UDD on TCP port 25
+  action: win_firewall_rule
+  args:
+      name: UDD
+      enable: yes
+      state: present
+      localport: 25
+      action: allow
+      direction: In
+      protocol: TCP
+
+# RULE FOR      Patch Manager, Security Suite, Software Distribution, Inventory
+
+- name: Firewall rule to allow Patch Manager, Security Suite, Software Distribution, Inventory
+  action: win_firewall_rule
+  args:
+      name: Patch Manager
+      enable: yes
+      state: present
+      localport: 80
+      action: allow
+      direction: Out
+      protocol: TCP
+
+# RULE FOR NetBios
+
+- name: Firewall rule to allow NetBios
+  action: win_firewall_rule
+  args:
+      name: NetBios
+      enable: yes
+      state: present
+      localport: 137
+      action: allow
+      direction: In
+      protocol: TCP
+#      force: True
+
+- name: Firewall rule to allow NetBios
+  action: win_firewall_rule
+  args:
+      name: NetBios
+      enable: yes
+      state: present
+      localport: 137
+      action: allow
+      direction: Out
+      protocol: TCP
+#      force: True
+#      ignore_erros: yes
+
+# RULE FOR UNC WITH PORT 139
+
+- name: Firewall rule to allow NetBios
+  action: win_firewall_rule
+  args:
+      name: UNC
+      enable: yes
+      state: present
+      localport: 139
+      action: allow
+      direction: In
+      protocol: TCP
+
+- name: Firewall rule to allow NetBios
+  action: win_firewall_rule
+  args:
+      name: UNC
+      enable: yes
+      state: present
+      localport: 139
+      action: allow
+      direction: Out
+      protocol: TCP
+
+# RULE FOR HTML5
+
+- name: Firewall rule to allow NetBios
+  action: win_firewall_rule
+  args:
+      name: HTML-5
+      enable: yes
+      state: present
+      localport: 4343
+      action: allow
+      direction: In
+      protocol: TCP
+
+- name: Firewall rule to allow NetBios
+  action: win_firewall_rule
+  args:
+      name: HTML-5
+      enable: yes
+      state: present
+      localport: 4343
+      action: allow
+      direction: Out
+      protocol: TCP
+
+# RULE FOR INVENTORY
+
+- name: Firewall rule for Inventory
+  action: win_firewall_rule
+  args:
+    name: Inventory
+    enable: yes
+    state: present
+    localport: 5007
+    action: allow
+    direction: Out
+    protocol: TCP
+
+# RULE FOR REMOTE MANAGMENT
+- name: Firewall rule for Software Distribution
+  action: win_firewall_rule
+  args:
+    name: Software Distribution
+    enable: yes
+    state: present
+    localport: 9593
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION
+- name: Firewall rule for Remote Managment
+  action: win_firewall_rule
+  args:
+    name: Remote managment
+    enable: yes
+    state: present
+    localport: 9535
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION
+- name: Firewall rule for Software Distribution
+  action: win_firewall_rule
+  args:
+    name: Software Distribution
+    enable: yes
+    state: present
+    localport: 9594
+    action: allow
+    direction: In
+    protocol: TCP
+
+
+- name: Firewall rule for Software Distribution
+  action: win_firewall_rule
+  args:
+   name: Software Distribution
+   enable: yes
+   state: present
+   localport: 9594
+   action: allow
+   direction: Out
+   protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Agent Discovery
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: In
+    protocol: TCP
+
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Agent Discovery
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: Out
+    protocol: TCP
+
+
+#RULE FOR AMT Notification
+- name: Firewall rule for AMT Notification
+  action: win_firewall_rule
+  args:
+    name: AMT Notification
+    enable: yes
+    state: present
+    localport: 9971
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR AMT DISCOVERY/VPRO
+- name: Firewall rule for AMT Discovery/VPro
+  action: win_firewall_rule
+  args:
+    name: AMT Discovery/vPro
+    enable: yes
+    state: present
+    localport: 9982
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR REMOTE EXECUTE
+- name: Firewall rule for Remote Execute
+  action: win_firewall_rule
+  args:
+    name: Remote Execute
+    enable: yes
+    state: present
+    localport: 12174
+    action: allow
+    direction: In
+    protocol: TCP
+
+#RULE FOR  SOFTWARE DISTRIBUTION POLICY
+- name: Firewall rule for software Distribution Policy
+  action: win_firewall_rule
+  args:
+    name: software Distribution Policy
+    enable: yes
+    state: present
+    localport: 12175
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION POLICY
+- name: Firewall rule for software Distribution Policy
+  action: win_firewall_rule
+  args:
+    name: software Distribution Policy
+    enable: yes
+    state: present
+    localport: 12176
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR HTTP AMT MANAGEMENT
+- name: Firewall rule for HTTP Amt management
+  action: win_firewall_rule
+  args:
+    name: http amt management
+    enable: yes
+    state: present
+    localport: 16992
+    action: allow
+    direction: In
+    protocol: TCP
+
+
+- name: Firewall rule for HTTP Amt management
+  action: win_firewall_rule
+  args:
+    name: http amt management
+    enable: yes
+    state: present
+    localport: 16992
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR HTTPs AMT MANAGEMENT
+- name: Firewall rule for HTTPs Amt management
+  action: win_firewall_rule
+  args:
+    name: https amt management
+    enable: yes
+    state: present
+    localport: 16993
+    action: allow
+    direction: In
+    protocol: TCP
+
+
+- name: Firewall rule for HTTPs Amt management
+  action: win_firewall_rule
+  args:
+    name: https amt management
+    enable: yes
+    state: present
+    localport: 16993
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FORAMT HELLO PACKET
+- name: Firewall rule for Amt Hello Packet
+  action: win_firewall_rule
+  args:
+    name: Amt Hello Packet
+    enable: yes
+    state: present
+    localport: 16994
+    action: allow
+    direction: In
+    protocol: TCP
+
+
+- name: Firewall rule for Amt Hello Packet
+  action: win_firewall_rule
+  args:
+    name: Amt Hello Packet
+    enable: yes
+    state: present
+    localport: 16994
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR SOFTWARE DISTRIBUTION (PEER DOWNLOAD, MULTICAST)
+- name: Firewall rule for Software Distribution (PeerDownload, Multicast)
+  action: win_firewall_rule
+  args:
+    name: Software Distribution (PeerDownload, Multicast)
+    enable: yes
+    state: present
+    localport: 33354
+    action: allow
+    direction: In
+    protocol: TCP
+
+
+- name: Firewall rule for Amt Hello Packet
+  action: win_firewall_rule
+  args:
+    name: Software Distribution (PeerDownload, Multicast)
+    enable: yes
+    state: present
+    localport: 33354
+    action: allow
+    direction: Out
+    protocol: TCP
+
+#RULE FOR Imaging (PXE Broadcast)
+- name: Firewall rule for Imaging (PXE Broadcast)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE Broadcast)
+    enable: yes
+    state: present
+    localport: 67
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Imaging (PXE )
+- name: Firewall rule for Imaging (PXE)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE)
+    enable: yes
+    state: present
+    localport: 68
+    action: allow
+    direction: In
+    protocol: UDP
+
+#RULE FOR Imaging (PXE TFTP)
+- name: Firewall rule for Imaging (PXE TFTP)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE TFTP)
+    enable: yes
+    state: present
+    localport: 69
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Imaging (PXE MTFTP)
+- name: Firewall rule for Imaging (PXE MTFTP)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE MTFTP)
+    enable: yes
+    state: present
+    localport: 1758
+    action: allow
+    direction: In
+    protocol: UDP
+
+#RULE FOR Imaging (PXE MTFTP)
+- name: Firewall rule for Imaging (PXE MTFTP)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE MTFTP)
+    enable: yes
+    state: present
+    localport: 1759
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Imaging (PXE Unicast)
+- name: Firewall rule for Imaging (PXE Unicast)
+  action: win_firewall_rule
+  args:
+    name: Imaging (PXE Unicast)
+    enable: yes
+    state: present
+    localport: 4011
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR Device Discovery, XDD
+- name: Firewall rule for Device Discovery, XDD
+  action: win_firewall_rule
+  args:
+    name: Device Discovery, XDD
+    enable: yes
+    state: present
+    localport: 9535
+    action: allow
+    direction: In
+    protocol: UDP
+
+
+- name: Firewall rule for Imaging Device Discovery, XDD
+  action: win_firewall_rule
+  args:
+    name: Device Discovery, XDD
+    enable: yes
+    state: present
+    localport: 9535
+    action: allow
+    direction: Out
+    protocol: UDP
+
+
+#RULE FOR AGENT DISCOVERY
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Device Discovery, XDD
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: In
+    protocol: UDP
+
+
+- name: Firewall rule for Imaging Device Discovery, XDD
+  action: win_firewall_rule
+  args:
+    name: Device Discovery, XDD
+    enable: yes
+    state: present
+    localport: 9595
+    action: allow
+    direction: Out
+    protocol: UDP
+
+#RULE FOR SOFTWARE DISTRIBUTION MULTICAST
+- name: Firewall rule for Software Distribution (Multicast)
+  action: win_firewall_rule
+  args:
+    name: Software Distribution (Multicast)
+    enable: yes
+    state: present
+    localport: 33354
+    action: allow
+    direction: In
+    protocol: UDP
+
+
+- name: Firewall rule for Software Distribution (Multicast)
+  action: win_firewall_rule
+  args:
+    name: Software Distribution (Multicast)
+    enable: yes
+    state: present
+    localport: 33355
+    action: allow
+    direction: In
+    protocol: UDP
+
+#RULE FOR AGENT DISCOVERY
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Agent Discovery
+    enable: yes
+    state: present
+    localport: 38293
+    action: allow
+    direction: In
+    protocol: UDP
+
+- name: Firewall rule for Agent Discovery
+  action: win_firewall_rule
+  args:
+    name: Agent Discovery
+    enable: yes
+    state: present
+    localport: 38293
+    action: allow
+    direction: Out
+    protocol: UDP
+

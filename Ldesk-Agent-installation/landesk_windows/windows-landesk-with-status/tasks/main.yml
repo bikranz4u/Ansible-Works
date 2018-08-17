@@ -1,0 +1,5 @@
+---
+# tasks file for windows-landesk
+
+- include: agent-install.yml
+#- include: win_firewall.yml

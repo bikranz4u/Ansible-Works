@@ -1,0 +1,3 @@
+- name: reboot
+  win_reboot:
+   reboot_timeout_sec: 180
