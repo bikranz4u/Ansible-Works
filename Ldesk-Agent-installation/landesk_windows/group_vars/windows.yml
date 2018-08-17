@@ -1,5 +1,5 @@
 ansible_user: Administrator
-ansible_password: "*bHyzCvl@6=w&l3zxMQgbZ?Gpk6DLp7J"
+ansible_password: "XXXXXXXXXXXXXXXXX"
 ansible_port: 5986
 ansible_winrm_scheme: https
 
